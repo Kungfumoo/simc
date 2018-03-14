@@ -3,6 +3,7 @@
 
 
  HEADERS += qt/util/sc_textedit.hpp
+ HEADERS += qt/util/sc_simulatetextedit.hpp
  HEADERS += qt/util/sc_tabbar.hpp
  HEADERS += qt/util/sc_searchbox.hpp
  HEADERS += qt/util/sc_relativepopup.hpp
@@ -22,6 +23,7 @@
  HEADERS += qt/sc_AutomationTab.hpp
  HEADERS += qt/sc_AddonImportTab.hpp
  SOURCES += qt/util/sc_textedit.cpp
+ SOURCES += qt/util/sc_simulatetextedit.cpp
  SOURCES += qt/util/sc_tabbar.cpp
  SOURCES += qt/util/sc_searchbox.cpp
  SOURCES += qt/util/sc_relativepopup.cpp

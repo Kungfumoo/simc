@@ -8,6 +8,7 @@
 #include "util/sc_recentlyclosed.hpp"
 
 class SC_TextEdit;
+class SC_SimulateTextEdit;
 
 const QString defaultSimulateText( "# Profile will be downloaded into a new tab.\n"
                                    "#\n"

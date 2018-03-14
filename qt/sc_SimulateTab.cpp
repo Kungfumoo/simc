@@ -3,7 +3,7 @@
 // Send questions to natehieter@gmail.com
 // ==========================================================================
 #include "sc_SimulateTab.hpp"
-#include "util/sc_textedit.hpp"
+#include "util/sc_simulatetextedit.hpp"
 #include <cassert>
 
 SC_SimulateTab::SC_SimulateTab( QWidget* parent, SC_RecentlyClosedTabItemModel* modelToUse ):
@@ -38,7 +38,7 @@ bool SC_SimulateTab::is_Default_New_Tab( int index )
     if ( index >= 0 && index < count() &&
          !isACloseAllExclude( widget( index ) ) )
         retval = (tabText( index ) == defaultSimulateTabTitle &&
-                  static_cast<SC_TextEdit*>(widget( index )) -> toPlainText() == defaultSimulateText);
+                  static_cast<SC_SimulateTextEdit*>(widget( index )) -> toPlainText() == defaultSimulateText);
     return retval;
 }
 
@@ -58,7 +58,7 @@ bool SC_SimulateTab::contains_Only_Default_Profiles()
 
 int SC_SimulateTab::add_Text( const QString& text, const QString& tab_name )
 {
-    SC_TextEdit* s = new SC_TextEdit();
+    SC_SimulateTextEdit* s = new SC_SimulateTextEdit();
     s -> setPlainText( text );
 
     int indextoInsert = indexOf( addTabWidget );
@@ -69,18 +69,18 @@ int SC_SimulateTab::add_Text( const QString& text, const QString& tab_name )
 
 SC_TextEdit* SC_SimulateTab::current_Text()
 {
-    return static_cast<SC_TextEdit*>(currentWidget());
+    return static_cast<SC_SimulateTextEdit*>(currentWidget());
 }
 
 void SC_SimulateTab::set_Text( const QString& text )
 {
-    SC_TextEdit* current_s = static_cast<SC_TextEdit*>(currentWidget());
+    SC_SimulateTextEdit* current_s = static_cast<SC_SimulateTextEdit*>(currentWidget());
     current_s -> setPlainText( text );
 }
 
 void SC_SimulateTab::append_Text( const QString& text )
 {
-    SC_TextEdit* current_s = static_cast<SC_TextEdit*>(currentWidget());
+    SC_SimulateTextEdit* current_s = static_cast<SC_SimulateTextEdit*>(currentWidget());
     current_s -> appendPlainText( text );
 }
 
@@ -144,7 +144,7 @@ void SC_SimulateTab::insertNewTabAt( int index, const QString text, const QStrin
 {
     if ( index < 0 || index > count() )
         index = currentIndex();
-    SC_TextEdit* s = new SC_TextEdit();
+    SC_SimulateTextEdit* s = new SC_SimulateTextEdit();
     s -> setPlainText( text );
     insertTab( index, s, title );
     setCurrentIndex( index );
