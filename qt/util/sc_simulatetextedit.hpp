@@ -6,7 +6,6 @@
 #pragma once
 
 #include "config.hpp"
-
 #include "sc_textedit.hpp"
 
 class QMimeData;
@@ -23,5 +22,5 @@ class SC_SimulateTextEdit : public SC_TextEdit
     void insertFromMimeData( const QMimeData *source ) override;
 
   private:
-    QString fetchApl();
+    QString fetchApl( QString &text );
 };

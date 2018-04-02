@@ -9929,6 +9929,48 @@ void player_t::recreate_talent_str( talent_format_e format )
   }
 }
 
+std::string player_t::create_apl_str()
+{
+    std::string apl_str = "";
+    std::string term = "\n";
+
+    // If we created a default action list, add comments
+    if ( no_action_list_provided )
+      apl_str += action_list_information;
+
+    auto apls = sorted_action_priority_lists( this );
+    for ( const auto apl : apls )
+    {
+      if ( ! apl -> action_list_comment_str.empty() )
+      {
+        apl_str += term + "# " + apl -> action_list_comment_str;
+      }
+      apl_str += term;
+
+      bool first = true;
+      for ( const auto& action : apl -> action_list )
+      {
+        if ( ! action.comment_.empty() )
+        {
+          apl_str += "# " + action.comment_ + term;
+        }
+
+        apl_str += "actions";
+        if ( ! util::str_compare_ci( apl -> name_str, "default" ) )
+        {
+          apl_str += "." + apl -> name_str;
+        }
+
+        apl_str += first ? "=" : "+=/";
+        apl_str += action.action_ + term;
+
+        first = false;
+      }
+    }
+
+    return apl_str;
+}
+
 // player_t::create_profile =================================================
 
 std::string player_t::create_profile( save_e stype )
@@ -10037,39 +10079,7 @@ std::string player_t::create_profile( save_e stype )
   {
     if ( !action_list_str.empty() || use_default_action_list )
     {
-      // If we created a default action list, add comments
-      if ( no_action_list_provided )
-        profile_str += action_list_information;
-
-      auto apls = sorted_action_priority_lists( this );
-      for ( const auto apl : apls )
-      {
-        if ( ! apl -> action_list_comment_str.empty() )
-        {
-          profile_str += term + "# " + apl -> action_list_comment_str;
-        }
-        profile_str += term;
-
-        bool first = true;
-        for ( const auto& action : apl -> action_list )
-        {
-          if ( ! action.comment_.empty() )
-          {
-            profile_str += "# " + action.comment_ + term;
-          }
-
-          profile_str += "actions";
-          if ( ! util::str_compare_ci( apl -> name_str, "default" ) )
-          {
-            profile_str += "." + apl -> name_str;
-          }
-
-          profile_str += first ? "=" : "+=/";
-          profile_str += action.action_ + term;
-
-          first = false;
-        }
-      }
+      profile_str += create_apl_str();
     }
   }
 

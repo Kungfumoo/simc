@@ -4583,6 +4583,7 @@ struct player_t : public actor_t
     options.insert( options.begin(), std::move( o ) );
   }
   void recreate_talent_str( talent_format_e format = TALENT_FORMAT_NUMBERS );
+  std::string create_apl_str();
   virtual std::string create_profile( save_e = SAVE_ALL );
 
   virtual void copy_from( player_t* source );
